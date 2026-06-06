@@ -4,14 +4,13 @@ import { useLocation } from "react-router-dom";
 import fetchModel from "../../lib/fetchModelData";
 import "./styles.css";
 
-function TopBar () {
+function TopBar ({ loggedInUser }) {
     const location = useLocation();
     const [contextText, setContextText] = useState("Home");
 
     useEffect(() => {
       const pathParts = location.pathname.split("/");
       
-      // Nếu đang xem chi tiết người dùng hoặc ảnh
       if (pathParts.length === 3) {
         const type = pathParts[1];
         const id = pathParts[2];
@@ -28,7 +27,7 @@ function TopBar () {
       } else {
         setContextText("Home");
       }
-    }, [location.pathname]); // Chạy lại mỗi khi URL thay đổi
+    }, [location.pathname]); 
 
     return (
       <AppBar className="topbar-appBar" position="absolute">
@@ -36,14 +35,17 @@ function TopBar () {
           <Grid container justifyContent="space-between" alignItems="center">
             <Grid item>
               <Typography variant="h6" color="inherit">
-                {/* ĐIỀN TÊN BẠN VÀO ĐÂY */}
-                Le Hai Dang
+                
+                {loggedInUser ? `Hi, ${loggedInUser.first_name}` : "Please Login"}
               </Typography>
             </Grid>
             <Grid item>
-              <Typography variant="h6" color="inherit">
-                {contextText}
-              </Typography>
+              
+              {loggedInUser && (
+                <Typography variant="h6" color="inherit">
+                  {contextText}
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </Toolbar>

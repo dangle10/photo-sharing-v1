@@ -6,7 +6,6 @@ import "./styles.css";
 
 function UserPhotos () {
     const { userId } = useParams();
-    // State lưu danh sách ảnh, mặc định là mảng rỗng (hoặc null)
     const [photos, setPhotos] = useState(null);
 
     useEffect(() => {
@@ -19,7 +18,6 @@ function UserPhotos () {
         return <Typography>Loading photos...</Typography>;
     }
 
-    // Nếu user chưa có ảnh nào
     if (photos.length === 0) {
         return <Typography>No photos found for this user.</Typography>;
     }
